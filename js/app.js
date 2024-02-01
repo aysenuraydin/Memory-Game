@@ -82,7 +82,6 @@ $(document).ready(function() {
                         $('.selected').addClass("matched");
                         app.isFinish();
                     }
-                    $('.selected img').addClass("z-index");
                     $('.selected').removeClass("selected");
                     app.isCanClick();
                 },2500);  
@@ -93,7 +92,7 @@ $(document).ready(function() {
             if($('.matched').length == 12) {
                 
                 setTimeout(function(){ 
-                    $(".finish").html( $(".d-none").html() );
+                    $(".content").html( $(".d-none").html() );
                 },2000); 
             }
         },
