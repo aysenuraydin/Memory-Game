@@ -3,8 +3,21 @@
 $(document).ready(function() {
 
     var app = {
-        clickCount : 0,
+
         butterflys : [1,2,3,4,5,6,7,8,9,10],
+        clickCount : 0,
+        canClick : true,
+        
+        isCanClick : function () {
+
+            if(app.canClick) {
+                app.canClick = false;
+                $(".mcard").css("cursor","no-drop");
+            } else {
+                app.canClick = true;
+                $(".mcard").css("cursor","pointer");
+            }
+        },
         init: function() { 
 			for (var i = 0; i < 4; i++) {
 
@@ -45,11 +58,14 @@ $(document).ready(function() {
         },
         clickCard: function() {
             
-            $('.mcard').click(function(){
-                $(this).addClass("selected");
-                app.selectControl();
+            $('.mcard').click(function(e){
+                if(!app.canClick) {
+                    e.preventDefault();
+                }else {
+                    $(this).addClass("selected");
+                    app.selectControl();
+                }
 			});
-
             $('#reset').click(function(){
                 app.reset();
 			});
@@ -58,16 +74,18 @@ $(document).ready(function() {
             
             $("#counter").text(app.clickCount += 1);
             if($('.selected').length == 2) {
-             
-                if($('.selected').first().attr("data-index") == $('.selected').last().attr("data-index")) {
-                    
-                    $('.selected').addClass("matched").removeClass("selected");
-                    app.isFinish();
-                } else {
-                    setTimeout(function(){ 
-                        $('.selected').removeClass("selected");
-                    },1500); 
-                }
+
+                app.isCanClick();
+                setTimeout(function(){
+                    if($('.selected').first().attr("data-index") == $('.selected').last().attr("data-index")) {
+
+                        $('.selected').addClass("matched");
+                        app.isFinish();
+                    }
+                    $('.selected img').addClass("z-index");
+                    $('.selected').removeClass("selected");
+                    app.isCanClick();
+                },2500);  
             }
         },
         isFinish: function() {
@@ -76,7 +94,7 @@ $(document).ready(function() {
                 
                 setTimeout(function(){ 
                     $(".finish").html( $(".d-none").html() );
-                },3000); 
+                },2000); 
             }
         },
         reset: function() {

@@ -6,7 +6,7 @@
     --color: #afdffe;
 }
 html {
-    font-size: 7px; 
+    font-size: 9px; 
 }
 @media (max-width: 800px) {
     html {
@@ -62,6 +62,10 @@ body {
   justify-content: center;
   align-items: center;
   box-shadow: 5px 5px 15px #000;
+  cursor: pointer;
+}
+.z-index{
+  z-index: -1;
 }
 img {
     max-width: 21rem;
@@ -79,7 +83,6 @@ img {
 }
 .mcard:hover{
     transform-origin: center;
-    cursor: pointer;
 }
 .matched{
     background-image: url("");
